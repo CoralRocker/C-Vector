@@ -82,7 +82,7 @@ void insertVector(vector *v, int index, int value)
 
 /* Sets a specific index in the vector to a specific value
  */
-void setVector(vector *v, int index, int value)
+void assignVector(vector *v, int index, int value)
 {
 	if(index < v->size && index >= 0)
 		v->arr[index] = value;
@@ -91,7 +91,7 @@ void setVector(vector *v, int index, int value)
 /* Removes an index from the vector. Shifts all value after it left one space
  * and decreases the size;
  */
-void deleteVector(vector *v, int index)
+void eraseVector(vector *v, int index)
 {
 	if(index >= v->size || index < 0)
 		return;
@@ -130,4 +130,57 @@ void copyVector(vector *src, vector *dst, size_t size)
 		dst->size = src->size;
 		memcpy(dst, src, src->size);
 	}
+}
+
+/* Same as deleteVector() methods, except it only works on the last element of the vector.
+ */
+void popBackVector(vector *v)
+{
+	eraseVector(v, v->size-1);
+}
+
+/* Swaps the memory address of two given vectors. Doesn't affect any information stored by vectors.
+ */
+void swapVector(vector *v1, vector *v2)
+{
+	vector *temp = v1;
+	v1 = v2;
+	v2 = v1;
+}
+
+/* Gets the value of element at given index. Returns 0 if the index is invalid.
+ */
+int atVector(vector *v, int index)
+{
+	return (v->size > index && index >= 0) ? v->arr[index] : 0;
+}
+
+/* Gets the value of the first element in the vector. Returns 0 if the vector is of size 0.
+ */
+int frontVector(vector *v)
+{
+	return (v->size > 0) ? v->arr[0] : 0;
+}
+
+/* Gets the value of the last  element in the vector. Returns 0 if the vector is of size 0.
+ */
+int backVector(vector *v)
+{
+	return (v->size > 0) ? v->arr[v->size-1] : 0; 
+}
+
+/* Sets all elements in a vector to 0, then frees the memory.
+ */
+void clearVector(vector *v)
+{
+	memset(v->arr, 0, sizeof(int)*v->size);
+	free(v->arr);
+	v->size = 0;
+}
+
+/* Returns the pointer to the vector's data array.
+ */
+int* dataVector(vector *v)
+{
+	return v->arr;
 }
