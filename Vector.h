@@ -175,6 +175,7 @@ void clearVector(vector *v)
 {
 	memset(v->arr, 0, sizeof(int)*v->size);
 	free(v->arr);
+	v->arr = NULL;
 	v->size = 0;
 }
 
